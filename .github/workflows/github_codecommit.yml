@@ -22,7 +22,7 @@ jobs:
 
       - name: Add CodeCommit remote
         run: |
-          git remote add codecommit https://git-codecommit.${{ secrets.AWS_REGION }}.amazonaws.com/v1/repos/${{ secrets.CODECOMMIT_REPO_NAME }}
+          git remote add codecommit https://git-codecommit.${{ secrets.AWS_REGION }}.amazonaws.com/v1/repos/avei-playground-terraform
 
       - name: Push to CodeCommit
         run: |
