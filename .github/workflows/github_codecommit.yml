@@ -24,8 +24,11 @@ jobs:
         run: |
           git config --global user.name "${{ secrets.GIT_USER_NAME }}"
           git config --global user.password "${{ secrets.GIT_USER_PASSWORD }}"
+      
+      - name: Add CodeCommit remote
+        run: |
+          git remote add codecommit https://git-codecommit.${{ secrets.AWS_REGION }}.amazonaws.com/v1/repos/avei-playground-terraform
 
       - name: Push to AWS CodeCommit
         run: |
-          git remote add codecommit https://git-codecommit.us-east-1.amazonaws.com/v1/repos/avei-playground-terraform
-          git push codecommit main
+          git push codecommit --mirror
