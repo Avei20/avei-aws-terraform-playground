@@ -1,4 +1,26 @@
 {
   "singleQuote": true,
-  "trailingComma": "all"
+  "semi": false,
+  "tabwidth": 2,
+  "trailingComma": "all",
+  "printWidth": 80,
+  "jsxBracketSameLine": false,
+  "arrowParens": "always",
+  "bracketSpacing": true,
+  "jsxSingleQuote": false,
+  "quoteProps": "as-needed",
+  "useTabs": false,
+  "proseWrap": "preserve",
+  "endOfLine": "auto",
+  "overrides": [
+    {
+      "files": "*.{js,jsx,ts,tsx}",
+      "options": {
+        "singleQuote": true,
+        "semi": false,
+        "trailingComma": "all",
+        "brace-style": "1tbs"
+      }
+    }
+  ]
 }
