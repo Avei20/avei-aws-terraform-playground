@@ -1,0 +1,28 @@
+name: Push to AWS CodeCommit
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  push_to_codecommit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@main
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@main
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Push to CodeCommit
+        uses: Avei20/avei-aws-terraform-playground@main
+        with: 
+          repository-name: 'avei-terraform-playground'
+          aws_region: 'eu-west-1'
+        
