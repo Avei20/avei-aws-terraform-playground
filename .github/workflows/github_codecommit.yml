@@ -21,7 +21,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Push to CodeCommit
-        uses: tsgit18/sync-up-to-codecommit-action@v1
+        uses: akhiljalagam/sync-up-to-codecommit-action@v1.1
         with: 
           repository_name: 'avei-playground-terraform'
           aws_region: ${{ secrets.AWS_REGION }}
