@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  push_to_codecommit:
+  sycn-to-codecommit:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,10 +20,15 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
       
+      - name: Test AWS CLI
+        run: |
+          aws codecommit help
+
       - name: Setup Git
         run: |
           git config --global user.name "${{ secrets.GIT_USER_NAME }}"
           git config --global user.password "${{ secrets.GIT_USER_PASSWORD }}"
+          git config --list
       
       - name: Add CodeCommit remote
         run: |
