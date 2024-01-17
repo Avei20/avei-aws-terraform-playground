@@ -20,9 +20,10 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
       
-      - name: Print Git Config
-        run: | 
-          git config --list
+      - name: Setup Git
+        run: |
+          git config --global user.name "${{ secrets.GIT_USER_NAME }}"
+          git config --global user.password "${{ secrets.GIT_USER_PASSWORD }}"
 
       - name: Push to AWS CodeCommit
         run: |
