@@ -24,11 +24,10 @@ jobs:
         run: |
           aws codecommit help
 
-      - name: Setup Git
+      - name: Setup Credential Helper 
         run: |
-          git config --global user.name "${{ secrets.GIT_USER_NAME }}"
-          git config --global user.password "${{ secrets.GIT_USER_PASSWORD }}"
-          git config --list
+          git config --global credential.helper '!aws codecommit credential-helper $@'
+          git config --global credential.UseHttpPath true
       
       - name: Add CodeCommit remote
         run: |
