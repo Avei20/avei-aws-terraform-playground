@@ -20,10 +20,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Add CodeCommit remote
+      - name: Push to AWS CodeCommit
         run: |
-          git remote add codecommit https://git-codecommit.${{ secrets.AWS_REGION }}.amazonaws.com/v1/repos/avei-playground-terraform
-
-      - name: Push to CodeCommit
-        run: |
-          git push codecommit --mirror
+          git remote add codecommit https://git-codecommit.us-east-1.amazonaws.com/v1/repos/avei-playground-terraform
+          git push codecommit main
