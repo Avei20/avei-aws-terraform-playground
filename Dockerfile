@@ -2,6 +2,6 @@ FROM alpine:latest
 
 RUN apk --update --no-cache add git aws-cli 
 
-COPY entrypoint.sh /entrypoint.sh
+COPY entrypoint.sh .
 
-ENTRYPOINT [ "/entrypoint.sh" ]
+ENTRYPOINT [ "./entrypoint.sh" ]
