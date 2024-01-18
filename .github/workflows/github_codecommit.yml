@@ -20,13 +20,13 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-southeast-2
       
-      - name: throwing Exception 
-        run: |
-          git config --global --add safe.directory /github/workspace
+      # - name: throwing Exception 
+      #   run: |
+      #     git config --global --add safe.directory /github/workspace
       
-      - name: Test AWS CLI
-        run: |
-          aws codecommit help
+      # - name: Test AWS CLI
+      #   run: |
+      #     aws codecommit help
         
       - name: Sync up to CodeCommit
         uses: akhiljalagam/sync-up-to-codecommit-action@v1
