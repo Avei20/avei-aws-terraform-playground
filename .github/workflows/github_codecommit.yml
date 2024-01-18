@@ -32,7 +32,7 @@ jobs:
         uses: akhiljalagam/sync-up-to-codecommit-action@v1
         with:
           repository_name: avei-playground-terraform
-          aws_region: us-east-1
+          aws_region: ap-southeast-2
 
       # - name: Setup Credential Helper 
       #   run: |
@@ -42,7 +42,7 @@ jobs:
       # - name: Add CodeCommit remote
       #   run: |
       #     git remote add codecommit https://git-codecommit.us-east-1.amazonaws.com/v1/repos/
-
+          # git clone https://git-codecommit.ap-southeast-2.amazonaws.com/v1/repos/avei-playground-terraform
       # - name: Push to AWS CodeCommit
       #   run: |
       #     git push codecommit --mirror
