@@ -20,6 +20,10 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
       
+      - name: throwing Exception 
+        run: |
+          git config --global --add safe.directory /github/workspace
+      
       - name: Test AWS CLI
         run: |
           aws codecommit help
