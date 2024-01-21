@@ -1,0 +1,19 @@
+service: serverless-avei-nestjs
+
+plugins: 
+  - serverless-offline 
+
+provider:
+  name: aws 
+  runtime: nodejs18.x
+
+functions: 
+  main: 
+    handler: dist/main.handler
+    events: 
+      - http: 
+          path: /
+          method: ANY
+      - http: 
+          path: /{proxy+}
+          method: ANY 
