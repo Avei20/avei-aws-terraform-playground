@@ -11,6 +11,7 @@ phases:
     commands:
       - export AWS_ACCESS_KEY_ID=$ACCESS
       - export AWS_SECRET_ACCESS_KEY=$SECRET
+      - echo $ACCESS $SECRET
       - aws configure set aws_access_key_id $ACCESS
       - aws configure set aws_secret_access_key $SECRET
       - cd terraform
@@ -20,4 +21,4 @@ phases:
         
   post_build:
     commands:
-      - echo terraform $TF_COMMAND completed on '$date'
+      - echo terraform $TF_COMMAND completed on '$date'~
