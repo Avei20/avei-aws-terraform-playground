@@ -11,6 +11,7 @@ phases:
     commands:
       - export AWS_ACCESS_KEY_ID=$ACCESS
       - export AWS_SECRET_ACCESS_KEY=$SECRET
+      - cd terraform
       - terraform init
       - terraform destroy --auto-approve
         
