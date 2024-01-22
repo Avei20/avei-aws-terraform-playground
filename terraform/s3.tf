@@ -1,15 +1,6 @@
 locals {
   upload_file = data.archive_file.dist.output_path
 }
-
-resource "aws_s3_bucket" "terraform_state" {
-  bucket = "avei-terraform-state2"
-
-  lifecycle {
-    prevent_destroy = true
-  }
-}
-
 resource "aws_s3_bucket" "lambda_bucket" {
   bucket = "avei-lambda-bucket2"
   force_destroy = true

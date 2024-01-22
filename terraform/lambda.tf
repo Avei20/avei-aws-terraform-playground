@@ -1,5 +1,5 @@
-resource "aws_lambda_function" "avei_lambda-2" {
-  function_name = "avei-lambda-function-2"
+resource "aws_lambda_function" "avei_lambda" {
+  function_name = "avei-lambda-function"
   s3_bucket = aws_s3_bucket.lambda_bucket.id
   s3_key = aws_s3_object.lambda_bucket_object.key
   
@@ -13,27 +13,27 @@ resource "aws_lambda_function" "avei_lambda-2" {
   handler = "dist/main.handler"
   runtime = "nodejs18.x"
   
-  # depends_on = [ aws_db_instance.avei_rds2 ]
+  depends_on = [ aws_db_instance.avei_rds ]
 
   vpc_config {
-    subnet_ids = [ aws_subnet.application_subnet.id ]
+    subnet_ids = [ aws_subnet.application_subnet-a.id, aws_subnet.application_subnet-b.id ]
     security_group_ids = [ aws_security_group.database.id ]
   }
 
   environment {
     variables = {
-      DB_HOST = aws_db_instance.avei_rds2.address
-      DB_NAME = aws_db_instance.avei_rds2.db_name
-      DB_PASSWORD = aws_db_instance.avei_rds2.password
-      DB_PORT = aws_db_instance.avei_rds2.port
-      DB_USERNAME = aws_db_instance.avei_rds2.username
+      DB_HOST = aws_db_instance.avei_rds.address
+      DB_NAME = aws_db_instance.avei_rds.db_name
+      DB_PASSWORD = aws_db_instance.avei_rds.password
+      DB_PORT = aws_db_instance.avei_rds.port
+      DB_USERNAME = aws_db_instance.avei_rds.username
     }
   }
 
 }
 
 resource "aws_lambda_function_url" "lambda_function_url" {
-  function_name      = aws_lambda_function.avei_lambda-2.id
+  function_name      = aws_lambda_function.avei_lambda.id
   authorization_type = "NONE"
   cors {
     # allow_methods = [ * ]

@@ -7,9 +7,22 @@ resource "aws_vpc" "landing_zone" {
 }
 
 # Landing Zone Subnet
-resource "aws_subnet" "landing_zone_subnet-2" {
+resource "aws_subnet" "landing_zone_subnet" {
   vpc_id = aws_vpc.landing_zone.id
   cidr_block = "10.0.0.0/24"
+}
+
+# Landing Zone Route Table 
+resource "aws_route_table" "rt_landing_zone" {
+  vpc_id = aws_vpc.landing_zone.id
+}
+
+# Landing Zone to Transit Garetawy 
+resource "aws_route" "landing_to_tgw" {
+  route_table_id = aws_route_table.rt_landing_zone.id 
+  destination_cidr_block = "10.1.0.0/16"
+  transit_gateway_id = aws_ec2_transit_gateway.transit_gateway.id
+  depends_on = [ aws_ec2_transit_gateway.transit_gateway ]
 }
 
 # Create the Application VPC
@@ -21,14 +34,51 @@ resource "aws_vpc" "application" {
 }
 
 # Application Subnet
-resource "aws_subnet" "application_subnet" {
+resource "aws_subnet" "application_subnet-a" {
   vpc_id = aws_vpc.application.id
-  cidr_block = "10.1.0.0/24"
+  cidr_block = "10.1.1.0/24"
+  availability_zone = "us-east-1a"
 }
+resource "aws_subnet" "application_subnet-b" {
+  vpc_id = aws_vpc.application.id
+  cidr_block = "10.1.2.0/24"
+  availability_zone = "us-east-1b"
+}
+
+# Application Route Table 
+resource "aws_route_table" "rt_application" {
+  vpc_id = aws_vpc.application.id
+}
+
+# Application to Transit Gateway 
+resource "aws_route" "application_to_tgw" {
+  route_table_id = aws_route_table.rt_application.id 
+  destination_cidr_block = "10.0.0.0/16"
+  transit_gateway_id = aws_ec2_transit_gateway.transit_gateway.id
+  depends_on = [ aws_ec2_transit_gateway.transit_gateway ]
+}
+
+
 
 # Create the Transit Gateway
 resource "aws_ec2_transit_gateway" "transit_gateway" {
   description = "Transit Gateway"
+  default_route_table_association = "enable"
+  default_route_table_propagation = "enable"
+}
+
+# Transit Gateway to Landing Zone 
+resource "aws_ec2_transit_gateway_vpc_attachment" "landing_attachment" {
+  transit_gateway_id = aws_ec2_transit_gateway.transit_gateway.id 
+  vpc_id =   aws_vpc.landing_zone.id 
+  subnet_ids = [ aws_subnet.landing_zone_subnet.id ]
+}
+
+# Transit Gateway to Application
+resource "aws_ec2_transit_gateway_vpc_attachment" "application_attachment" {
+  transit_gateway_id = aws_ec2_transit_gateway.transit_gateway.id
+  vpc_id = aws_vpc.application.id
+  subnet_ids = [ aws_subnet.application_subnet-a.id, aws_subnet.application_subnet-b.id ]
 }
 
 # Security Group for Lambda to access RDS

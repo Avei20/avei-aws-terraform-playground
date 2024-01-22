@@ -39,6 +39,17 @@ resource "aws_iam_policy" "policy" {
           "*",
         ]
       },
+      {
+        Action = [
+          "ec2:CreateNetworkInterface",
+          "ec2:DescribeNetworkInterfaces",
+          "ec2:DeleteNetworkInterface",
+        ],
+        Effect = "Allow",
+        Resource = [
+          "*",
+        ]
+      },
     ]
     Version = "2012-10-17",
   })
