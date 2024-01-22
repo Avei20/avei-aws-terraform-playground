@@ -9,4 +9,4 @@ cd terraform && \
 find . -name "*.zip" -type f -delete && \
 # Zip all the code
 cd .. 
-zip -r ${ROOT_DIR}/terraform/zips/nest-zipped.zip ${ROOT_DIR}
+zip -r ${ROOT_DIR}/terraform/zips/nest-zipped.zip ${ROOT_DIR} 
